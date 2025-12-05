@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QueueD3XX", "QueueD3XX.vcxproj", "{D4C5DDE7-89FD-4799-9107-5E2A956AD85C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Legacy|ARM64 = Legacy|ARM64
+		Legacy|Win32 = Legacy|Win32
+		Legacy|x64 = Legacy|x64
+		QueueD3XX|ARM64 = QueueD3XX|ARM64
+		QueueD3XX|Win32 = QueueD3XX|Win32
+		QueueD3XX|x64 = QueueD3XX|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D4C5DDE7-89FD-4799-9107-5E2A956AD85C}.Legacy|ARM64.ActiveCfg = Legacy|ARM64
+		{D4C5DDE7-89FD-4799-9107-5E2A956AD85C}.Legacy|Win32.ActiveCfg = Legacy|Win32
+		{D4C5DDE7-89FD-4799-9107-5E2A956AD85C}.Legacy|Win32.Build.0 = Legacy|Win32
+		{D4C5DDE7-89FD-4799-9107-5E2A956AD85C}.Legacy|x64.ActiveCfg = Legacy|x64
+		{D4C5DDE7-89FD-4799-9107-5E2A956AD85C}.Legacy|x64.Build.0 = Legacy|x64
+		{D4C5DDE7-89FD-4799-9107-5E2A956AD85C}.QueueD3XX|ARM64.ActiveCfg = QueueD3XX|ARM64
+		{D4C5DDE7-89FD-4799-9107-5E2A956AD85C}.QueueD3XX|ARM64.Build.0 = QueueD3XX|ARM64
+		{D4C5DDE7-89FD-4799-9107-5E2A956AD85C}.QueueD3XX|Win32.ActiveCfg = QueueD3XX|Win32
+		{D4C5DDE7-89FD-4799-9107-5E2A956AD85C}.QueueD3XX|Win32.Build.0 = QueueD3XX|Win32
+		{D4C5DDE7-89FD-4799-9107-5E2A956AD85C}.QueueD3XX|x64.ActiveCfg = QueueD3XX|x64
+		{D4C5DDE7-89FD-4799-9107-5E2A956AD85C}.QueueD3XX|x64.Build.0 = QueueD3XX|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F910133D-190C-4A94-82DA-16D3EBE106E6}
+	EndGlobalSection
+EndGlobal
