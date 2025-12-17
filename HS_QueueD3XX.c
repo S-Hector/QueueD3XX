@@ -10,7 +10,7 @@
 #include <string.h>
 #include "QueueD3XX.h"
 
-#define QUEUE_D3XX_VERSION 0x0100000E
+#define QUEUE_D3XX_VERSION 0x0100000F
 
 typedef struct _HS_Buffer{
     FT_STATUS Status; //Return value of the read/write pipe call.
@@ -255,12 +255,10 @@ FT_STATUS _QueueRequester(HS_Queue *Queue)
             if(TempBuffer) //If a buffer was added, initiate the read pipe call for it.
             {
                 #ifdef _WIN32
-                    TempBuffer->Status = FT_ReadPipe(
+                    TempBuffer->Status = FT_ReadPipe(Queue->Handle, Queue->PipeID,
                 #else
-                    TempBuffer->Status = FT_ReadPipeAsync(
+                    TempBuffer->Status = FT_ReadPipeAsync(Queue->Handle, Queue->PipeID & 0x07, //Linux uses FIFO ID.
                 #endif //_WIN32
-                
-                                                    Queue->Handle, Queue->PipeID,
                                                     TempBuffer->Buffer, Queue->StreamSize,
                                                     &TempBuffer->BytesTransferred, &TempBuffer->Overlap);
             }
@@ -273,11 +271,10 @@ FT_STATUS _QueueRequester(HS_Queue *Queue)
             if(Queue->Size) //If there's data to write out.
             {
                 #ifdef _WIN32
-                    Queue->Buffers->Status = FT_WritePipe(
+                    Queue->Buffers->Status = FT_WritePipe(Queue->Handle, Queue->PipeID,
                 #else
-                    Queue->Buffers->Status = FT_WritePipeAsync(
+                    Queue->Buffers->Status = FT_WritePipeAsync(Queue->Handle, Queue->PipeID & 0x07, //Linux uses FIFO ID.
                 #endif //_WIN32
-                                                        Queue->Handle, Queue->PipeID,
                                                         Queue->Buffers->Buffer, Queue->StreamSize,
                                                         &Queue->Buffers->BytesTransferred,&Queue->Buffers->Overlap);
                 LeaveCriticalSection(&Queue->BuffersMutex);
