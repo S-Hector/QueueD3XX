@@ -1,14 +1,16 @@
-#include "pch.h"
-#include "QueueD3XX.h"
+#ifdef _WIN32
+    #include "pch.h"
+    #include <processthreadsapi.h>
+#else //For Linux/macOS
+    #include "HS_processthreadsapi.h"
+    #define HS_
+#endif //_WIN32
 #include <stdlib.h>
 //#include <stdio.h>
 #include <string.h>
+#include "QueueD3XX.h"
 
-#ifdef _WIN32
-#include <processthreadsapi.h>
-#endif //_WIN32
-
-#define QUEUE_D3XX_VERSION 0x0100000D
+#define QUEUE_D3XX_VERSION 0x0100000E
 
 typedef struct _HS_Buffer{
     FT_STATUS Status; //Return value of the read/write pipe call.
@@ -27,12 +29,10 @@ typedef struct _Queue{
     ULONG Size; //Current size of the queue.
     ULONG SizeWS; //Size of WriteStatus.
     BOOL Active; //If true, a thread is actively using this queue.
-#ifdef _WIN32
     CRITICAL_SECTION ActiveMutex;
     CRITICAL_SECTION BuffersMutex;
     DWORD ThreadID;
     HANDLE ThreadHandle;
-#endif //_WIN32
     struct _Queue *Prev;
     struct _Queue *Next;
     HS_Buffer *Buffers; //Our queue of buffers.
@@ -41,9 +41,7 @@ typedef struct _Queue{
 
 HS_Queue *QueueList = NULL;
 ULONG QueueSize = 0;
-#ifdef _WIN32
 CRITICAL_SECTION QueueListMutex;
-#endif //_WIN32
 
 void _InitQueueList()
 {
@@ -256,7 +254,13 @@ FT_STATUS _QueueRequester(HS_Queue *Queue)
             _AddBuffer(Queue, NULL, &TempBuffer, FALSE); //Add a buffer to the read pipe queue.
             if(TempBuffer) //If a buffer was added, initiate the read pipe call for it.
             {
-                TempBuffer->Status = FT_ReadPipe(Queue->Handle, Queue->PipeID,
+                #ifdef _WIN32
+                    TempBuffer->Status = FT_ReadPipe(
+                #else
+                    TempBuffer->Status = FT_ReadPipeAsync(
+                #endif //_WIN32
+                
+                                                    Queue->Handle, Queue->PipeID,
                                                     TempBuffer->Buffer, Queue->StreamSize,
                                                     &TempBuffer->BytesTransferred, &TempBuffer->Overlap);
             }
@@ -268,7 +272,12 @@ FT_STATUS _QueueRequester(HS_Queue *Queue)
             EnterCriticalSection(&Queue->BuffersMutex);
             if(Queue->Size) //If there's data to write out.
             {
-                Queue->Buffers->Status = FT_WritePipe(Queue->Handle, Queue->PipeID,
+                #ifdef _WIN32
+                    Queue->Buffers->Status = FT_WritePipe(
+                #else
+                    Queue->Buffers->Status = FT_WritePipeAsync(
+                #endif //_WIN32
+                                                        Queue->Handle, Queue->PipeID,
                                                         Queue->Buffers->Buffer, Queue->StreamSize,
                                                         &Queue->Buffers->BytesTransferred,&Queue->Buffers->Overlap);
                 LeaveCriticalSection(&Queue->BuffersMutex);
@@ -291,7 +300,16 @@ FT_STATUS _CreateThread(HS_Queue *Queue)
     Queue->Active = TRUE; //Indicate Queue is active.
     InitializeCriticalSection(&Queue->ActiveMutex);
     InitializeCriticalSection(&Queue->BuffersMutex);
-    Queue->ThreadHandle = CreateThread(NULL, 0, (PVOID)_QueueRequester, Queue, 0, &Queue->ThreadID);
+    #ifdef _WIN32
+        Queue->ThreadHandle = CreateThread(NULL, 0, (PVOID)_QueueRequester, Queue, 0, &Queue->ThreadID);
+    #else
+        Queue->ThreadHandle = (HANDLE) malloc(sizeof(pthread_t));
+        if(Queue->ThreadHandle)
+        {
+            if(pthread_create(Queue->ThreadHandle, NULL, (PVOID)_QueueRequester, Queue))
+            {free(Queue->ThreadHandle); Queue->ThreadHandle = NULL;} //Failed to create thread.
+        }
+    #endif //_WIN32
     if(!Queue->ThreadHandle) //If we failed to make a thread.
     {
         Queue->Active = FALSE;
@@ -362,7 +380,7 @@ FT_STATUS AddQueue(FT_HANDLE Handle, UCHAR PipeID, ULONG StreamSize,ULONG QueueL
 /*
     Wrapper for FT_Create(). So you don't need to import the D3XX library additionally to get a handle.
 */
-__declspec(dllexport) FT_STATUS HS_Open(PVOID pvArg,DWORD dwFlags,FT_HANDLE *pftHandle)
+HS_QD3XX_API FT_STATUS HS_Open(PVOID pvArg,DWORD dwFlags,FT_HANDLE *pftHandle)
 {
     return FT_Create(pvArg, dwFlags, pftHandle);
 }
@@ -375,7 +393,7 @@ HS_QD3XX_API FT_STATUS HS_Close(FT_HANDLE ftHandle)
     return FT_Close(ftHandle);
 }
 
-__declspec(dllexport) FT_STATUS HS_CreateQueue(FT_HANDLE Handle, UCHAR PipeID, ULONG StreamSize, ULONG QueueLength, BOOL Fixed, HS_QUEUE *NewQueueP)
+HS_QD3XX_API FT_STATUS HS_CreateQueue(FT_HANDLE Handle, UCHAR PipeID, ULONG StreamSize, ULONG QueueLength, BOOL Fixed, HS_QUEUE *NewQueueP)
 {
     FT_STATUS Status = FT_OK;
     if(Fixed){Status = FT_SetStreamPipe(Handle, FALSE, FALSE, PipeID, StreamSize);}
@@ -385,7 +403,7 @@ __declspec(dllexport) FT_STATUS HS_CreateQueue(FT_HANDLE Handle, UCHAR PipeID, U
     return Status;
 }
 
-__declspec(dllexport) FT_STATUS HS_DestroyQueue(HS_QUEUE DQueue)
+HS_QD3XX_API FT_STATUS HS_DestroyQueue(HS_QUEUE DQueue)
 {
     EnterCriticalSection(&QueueListMutex);
     HS_Queue *Temp = DQueue;
@@ -396,8 +414,13 @@ __declspec(dllexport) FT_STATUS HS_DestroyQueue(HS_QUEUE DQueue)
         EnterCriticalSection(&Temp->ActiveMutex);
         Temp->Active = FALSE; //Tell thread to stop.
         LeaveCriticalSection(&Temp->ActiveMutex);
-        WaitForSingleObject(Temp->ThreadHandle, INFINITE); //Wait for thread to stop.
-        CloseHandle(Temp->ThreadHandle); //Close the thread to free up resources.
+        #ifdef _WIN32
+            WaitForSingleObject(Temp->ThreadHandle, INFINITE); //Wait for thread to stop.
+            CloseHandle(Temp->ThreadHandle); //Close the thread to free up resources.
+        #else
+            pthread_join(*((pthread_t *)Temp->ThreadHandle), NULL);
+            free(Temp->ThreadHandle); Temp->ThreadHandle = NULL;
+        #endif //_WIN32
     }
     if(QueueSize == 1)
     {

@@ -1,0 +1,16 @@
+# Controls which symbols are exported on Linux.
+HS_QueueD3XX_LV_1.0 # Link Version.
+{
+    global:
+        HS_QUEUE;
+        HS_GetVersionQueueD3XX;
+        HS_Open;
+        HS_Close;
+        HS_CreateQueue;
+        HS_DestroyQueue;
+        HS_ReadQueue;
+        HS_WriteQueue;
+        HS_GetWriteStatus;
+    local:
+        *;
+};
