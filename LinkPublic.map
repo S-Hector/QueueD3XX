@@ -11,6 +11,7 @@ HS_QueueD3XX_LV_1.0 # Link Version.
         HS_ReadQueue;
         HS_WriteQueue;
         HS_GetWriteStatus;
+        HS_FreeQueueD3XX;
     local:
         *;
 };

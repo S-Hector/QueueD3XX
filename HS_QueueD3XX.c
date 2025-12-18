@@ -257,7 +257,7 @@ FT_STATUS _QueueRequester(HS_Queue *Queue)
                 #ifdef _WIN32
                     TempBuffer->Status = FT_ReadPipe(Queue->Handle, Queue->PipeID,
                 #else
-                    TempBuffer->Status = FT_ReadPipeAsync(Queue->Handle, Queue->PipeID & 0x07, //Linux uses FIFO ID.
+                    TempBuffer->Status = FT_ReadPipeAsync(Queue->Handle, (Queue->PipeID&0x07)-2, //Linux uses FIFO ID.
                 #endif //_WIN32
                                                     TempBuffer->Buffer, Queue->StreamSize,
                                                     &TempBuffer->BytesTransferred, &TempBuffer->Overlap);
@@ -273,7 +273,7 @@ FT_STATUS _QueueRequester(HS_Queue *Queue)
                 #ifdef _WIN32
                     Queue->Buffers->Status = FT_WritePipe(Queue->Handle, Queue->PipeID,
                 #else
-                    Queue->Buffers->Status = FT_WritePipeAsync(Queue->Handle, Queue->PipeID & 0x07, //Linux uses FIFO ID.
+                    Queue->Buffers->Status = FT_WritePipeAsync(Queue->Handle, (Queue->PipeID&0x07)-2, //Linux uses FIFO ID.
                 #endif //_WIN32
                                                         Queue->Buffers->Buffer, Queue->StreamSize,
                                                         &Queue->Buffers->BytesTransferred,&Queue->Buffers->Overlap);
@@ -572,4 +572,10 @@ HS_QD3XX_API FT_STATUS HS_GetWriteStatus(HS_QUEUE *Queue, PULONG BytesTransferre
         }
     }
     return Status;
+}
+
+HS_QD3XX_API FT_STATUS HS_FreeQueueD3XX()
+{
+    _FreeQueueList();
+    return FT_OK;
 }

@@ -74,6 +74,13 @@ HS_QD3XX_API FT_STATUS HS_WriteQueue(HS_QUEUE Queue, PUCHAR WriteBuffer, BOOL Wa
 */
 HS_QD3XX_API FT_STATUS HS_GetWriteStatus(HS_QUEUE *Queue, PULONG BytesTransferred, BOOL Wait);
 
+/*
+	You must call this on program exit if you didn't destroy all queues.
+	This will cleanup everything even if you didn't destroy all queues.
+	Not calling this and not freeing all queues can lead to a segfault on program exit.
+*/
+HS_QD3XX_API FT_STATUS HS_FreeQueueD3XX();
+
 #ifdef __cplusplus
 	}
 #endif

@@ -18,7 +18,7 @@ LIB_NAME = QueueD3XX
 # Set final library output .so directory.
 LIB_END_DIR = ./Linux/QueueD3XX/Lib/
 # Extra compiler flags go here.
-CFLAGS := -D_QUEUE_D3XX_EXPORT -fPIC -shared -fvisibility=hidden -Wl,--version-script=LinkPublic.map
+CFLAGS := -DFTD3XX_STATIC -D_QUEUE_D3XX_EXPORT -fPIC -shared -fvisibility=hidden -Wl,--version-script=LinkPublic.map
 TARGET = Unknown
 
 # Compile library for all architectures.
