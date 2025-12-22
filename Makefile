@@ -13,7 +13,7 @@ H_DIRS = -I./Linux/
 # Set library/.so search directories.
 LIB_DIRS = -L./
 # Set library/.a links.
-LIB_LINKS = -l:libftd3xx.so
+LIB_LINK = -l:libftd3xx
 # Set final library output .so file name.
 LIB_NAME = QueueD3XX
 # Set final library output .so directory.
@@ -34,6 +34,7 @@ x64:	TARGET = 64-bit
 x64:	LIB_DIRS += -L./Linux/linux-x86_64
 x64:	CC = x86_64-linux-gnu-g++
 x64:	LIB_END_DIR := $(LIB_END_DIR)x86_64/
+x64:	LIB_LINK := $(LIB_LINK)
 x64:	compile
 
 # ---| x86/x64 32-bit Compilation |---
@@ -41,6 +42,7 @@ x86:	TARGET = 32-bit
 x86:	LIB_DIRS += -L./Linux/linux-x86_32
 x86:	CC = i686-linux-gnu-g++
 x86:	LIB_END_DIR := $(LIB_END_DIR)x86_32/
+x86:	LIB_LINK := $(LIB_LINK)_32
 x86:	compile
 
 # ---| ARM 64-bit Compilation |---
@@ -48,12 +50,14 @@ arm64:	TARGET = ARM 64-bit
 arm64:	LIB_DIRS += -L./Linux/linux-arm-v8
 arm64:	CC = aarch64-linux-gnu-g++
 arm64:	LIB_END_DIR := $(LIB_END_DIR)arm_64/
+arm64:	LIB_LINK := $(LIB_LINK)_ARM
 arm64:	compile
 
 arm32:	TARGET = ARM 32-bit
 arm32:	LIB_DIRS += -L./Linux/linux-arm-v7-hf
 arm32:	CC = arm-linux-gnueabihf-g++
 arm32:	LIB_END_DIR := $(LIB_END_DIR)arm_32/
+arm32:	LIB_LINK := $(LIB_LINK)_ARM_32
 arm32:	compile
 
 # Our end compile target. Makes end directories as needed.
@@ -62,7 +66,7 @@ compile:
 	@cp QueueD3XX.h Linux/$(LIB_NAME)/
 	@cp Linux/ftd3xx.h Linux/$(LIB_NAME)/
 	@echo "---| COMPILING $(TARGET) LIBRARY |---";
-	$(CC) HS_QueueD3XX.c QueueD3XX.c  $(CFLAGS) $(H_DIRS) $(LIB_DIRS) $(LIB_LINKS) -o $(LIB_END_DIR)$(LIB_NAME).so
+	$(CC) HS_QueueD3XX.c QueueD3XX.c  $(CFLAGS) $(H_DIRS) $(LIB_DIRS) $(LIB_LINK).so -o $(LIB_END_DIR)$(LIB_NAME).so
 
 clean:
 	rm -rf Linux/$(LIB_NAME)/
