@@ -132,7 +132,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_QUEUE_D3XX_EXPORT;FTD3XX_STATIC;NDEBUG;QUEUED3XX_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <CompileAs>CompileAsC</CompileAs>
       <AdditionalIncludeDirectories>.\WU_FTD3XXLib\Lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -161,7 +161,7 @@ xcopy /Y /D "$(ProjectDir)WU_FTD3XXLib\Lib\FTD3XX.h" "$(SolutionDir)$(Configurat
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_QUEUE_D3XX_EXPORT;FTD3XX_STATIC;NDEBUG;QUEUED3XX_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <CompileAs>CompileAsC</CompileAs>
       <AdditionalIncludeDirectories>.\FTD3XXLibrary_v1.3.0.10;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -190,7 +190,7 @@ xcopy /Y /D "$(ProjectDir)FTD3XXLibrary_v1.3.0.10\FTD3XX.h" "$(SolutionDir)Queue
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_QUEUE_D3XX_EXPORT;FTD3XX_STATIC;NDEBUG;QUEUED3XX_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <CompileAs>CompileAsC</CompileAs>
       <AdditionalIncludeDirectories>.\WU_FTD3XXLib\Lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -219,7 +219,7 @@ xcopy /Y /D "$(ProjectDir)WU_FTD3XXLib\Lib\FTD3XX.h" "$(SolutionDir)$(Configurat
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_QUEUE_D3XX_EXPORT;FTD3XX_STATIC;NDEBUG;QUEUED3XX_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <CompileAs>CompileAsC</CompileAs>
       <AdditionalIncludeDirectories>.\FTD3XXLibrary_v1.3.0.10;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -248,7 +248,7 @@ xcopy /Y /D "$(ProjectDir)FTD3XXLibrary_v1.3.0.10\FTD3XX.h" "$(SolutionDir)Queue
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_QUEUE_D3XX_EXPORT;FTD3XX_STATIC;NDEBUG;QUEUED3XX_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <CompileAs>CompileAsC</CompileAs>
       <AdditionalIncludeDirectories>.\WU_FTD3XXLib\Lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -277,7 +277,7 @@ xcopy /Y /D "$(ProjectDir)WU_FTD3XXLib\Lib\FTD3XX.h" "$(SolutionDir)$(Configurat
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_QUEUE_D3XX_EXPORT;FTD3XX_STATIC;NDEBUG;QUEUED3XX_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <CompileAs>CompileAsC</CompileAs>
       <AdditionalIncludeDirectories>.\WU_FTD3XXLib\Lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

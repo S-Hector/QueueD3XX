@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\hector.soto\\Documents\\GitHub\\QueueD3XX\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D4C5DDE7-89FD-4799-9107-5E2A956AD85C}|QueueD3XX.vcxproj|C:\\Users\\hector.soto\\Documents\\GitHub\\QueueD3XX\\QueueD3XX.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D4C5DDE7-89FD-4799-9107-5E2A956AD85C}|QueueD3XX.vcxproj|solutionrelative:QueueD3XX.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4C5DDE7-89FD-4799-9107-5E2A956AD85C}|QueueD3XX.vcxproj|C:\\Users\\hector.soto\\Documents\\GitHub\\QueueD3XX\\HS_QueueD3XX.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D4C5DDE7-89FD-4799-9107-5E2A956AD85C}|QueueD3XX.vcxproj|solutionrelative:HS_QueueD3XX.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4C5DDE7-89FD-4799-9107-5E2A956AD85C}|QueueD3XX.vcxproj|C:\\Users\\hector.soto\\Documents\\GitHub\\QueueD3XX\\pch.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D4C5DDE7-89FD-4799-9107-5E2A956AD85C}|QueueD3XX.vcxproj|solutionrelative:pch.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "pch.h",
+              "DocumentMoniker": "C:\\Users\\hector.soto\\Documents\\GitHub\\QueueD3XX\\pch.h",
+              "RelativeDocumentMoniker": "pch.h",
+              "ToolTip": "C:\\Users\\hector.soto\\Documents\\GitHub\\QueueD3XX\\pch.h",
+              "RelativeToolTip": "pch.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-12-18T21:50:21.63Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HS_QueueD3XX.c",
+              "DocumentMoniker": "C:\\Users\\hector.soto\\Documents\\GitHub\\QueueD3XX\\HS_QueueD3XX.c",
+              "RelativeDocumentMoniker": "HS_QueueD3XX.c",
+              "ToolTip": "C:\\Users\\hector.soto\\Documents\\GitHub\\QueueD3XX\\HS_QueueD3XX.c",
+              "RelativeToolTip": "HS_QueueD3XX.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-12-18T21:49:13.099Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "QueueD3XX.c",
+              "DocumentMoniker": "C:\\Users\\hector.soto\\Documents\\GitHub\\QueueD3XX\\QueueD3XX.c",
+              "RelativeDocumentMoniker": "QueueD3XX.c",
+              "ToolTip": "C:\\Users\\hector.soto\\Documents\\GitHub\\QueueD3XX\\QueueD3XX.c",
+              "RelativeToolTip": "QueueD3XX.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-12-18T21:45:31.86Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
