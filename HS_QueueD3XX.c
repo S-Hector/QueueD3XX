@@ -10,7 +10,7 @@
 #include <string.h>
 #include "QueueD3XX.h"
 
-#define QUEUE_D3XX_VERSION 0x0100000F
+#define QUEUE_D3XX_VERSION 0x01000010
 
 typedef struct _HS_Buffer{
     FT_STATUS Status; //Return value of the read/write pipe call.
