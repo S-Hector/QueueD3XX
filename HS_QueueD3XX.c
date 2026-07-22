@@ -10,7 +10,7 @@
 #include <string.h>
 #include "QueueD3XX.h"
 
-#define QUEUE_D3XX_VERSION 0x01000011
+#define QUEUE_D3XX_VERSION 0x01000017
 
 typedef struct _HS_Buffer{
     FT_STATUS Status; //Return value of the read/write pipe call.
@@ -20,6 +20,16 @@ typedef struct _HS_Buffer{
     struct _HS_Buffer *Next;
     struct _HS_Buffer *Prev;
 } HS_Buffer;
+
+//Have to do this on Linux due to starvation bug in library due to URBs not being serviced equally.
+#ifndef _WIN32
+typedef struct _ServiceHandle
+{
+    FT_HANDLE Handle;
+    int AvailableURB[8]; //Shows which endpoints have active threads.
+    
+} HS_ServiceHandle;
+#endif //_WIN32
 
 typedef struct _Queue{
     FT_HANDLE Handle;

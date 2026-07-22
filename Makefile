@@ -1,9 +1,10 @@
 # Install the correct cross-compilers... this can differ...
-# sudo apt install gcc-x86-64-linux-gnu //For x64.
-# sudo apt install gcc-i686-linux-gnu //For x86.
-# sudo apt install gcc-aarch64-linux-gnu //For ARM 64-bit/V8.
-# sudo apt install gcc-arm-linux-gnueabihf //For ARM 32-bit/V7 hard float.
+# sudo apt install g++-x86-64-linux-gnu //For x64.
+# sudo apt install g++-i686-linux-gnu //For x86.
+# sudo apt install g++-aarch64-linux-gnu //For ARM 64-bit/V8.
+# sudo apt install g++-arm-linux-gnueabihf //For ARM 32-bit/V7 hard float.
 # ^ You need to do the g++ variants to get the stdc++ libs you need.
+
 # Quick console compile/link check: gcc test.c -I./Linux/ -L./ -l:QueueD3XX.so -Wl,-rpath,'$ORIGIN'
 
 # Set gcc as default compiler.
@@ -19,7 +20,7 @@ LIB_NAME = QueueD3XX
 # Set final library output .so directory.
 LIB_END_DIR = ./Linux/QueueD3XX/Lib/
 # Extra compiler flags go here.
-CFLAGS := -D_QUEUE_D3XX_EXPORT -w -fPIC -fpermissive -shared -fvisibility=hidden -Wl,--version-script=LinkPublic.map -Wl,-rpath,'$$ORIGIN' -Wl,-rpath,'$$ORIGIN/../'
+CFLAGS := -D_QUEUE_D3XX_EXPORT -w -fPIC -fpermissive -shared -fvisibility=hidden -Wl,--version-script=LinkPublic.map -Wl,-rpath,'$$ORIGIN/' -Wl,-rpath,'$$ORIGIN/../'
 TARGET = Unknown
 
 # Compile library for all architectures.
@@ -53,6 +54,7 @@ arm64:	LIB_END_DIR := $(LIB_END_DIR)arm_64/
 arm64:	LIB_LINK := $(LIB_LINK)_ARM
 arm64:	compile
 
+# ---| ARM 32-bit Compilation |---
 arm32:	TARGET = ARM 32-bit
 arm32:	LIB_DIRS += -L./Linux/linux-arm-v7-hf
 arm32:	CC = arm-linux-gnueabihf-g++
@@ -60,13 +62,30 @@ arm32:	LIB_END_DIR := $(LIB_END_DIR)arm_32/
 arm32:	LIB_LINK := $(LIB_LINK)_ARM_32
 arm32:	compile
 
+# ---| macOS Compilation |---
+mac:	TARGET = macOS (x86_64 & ARM64)
+mac:	LIB_DIRS += -L./macOS/
+mac:	CC = clang
+mac:	LIB_END_DIR := ./macOS/QueueD3XX/
+mac:	LIB_LINK := -lftd3xx
+mac:	CFLAGS := -D_QUEUE_D3XX_EXPORT -arch x86_64 -arch arm64 -w -fPIC -fpermissive -shared -fvisibility=hidden -Wl,-rpath,'$$ORIGIN/' -Wl,-rpath,'$$ORIGIN/../' -Wl,-install_name,@loader_path/libftd3xx.dylib -Wl,-install_name,@loader_path/../libftd3xx.dylib
+mac:
+	@mkdir -p $(LIB_END_DIR)
+	@cp QueueD3XX.h macOS/$(LIB_NAME)/
+	@cp macOS/ftd3xx.h macOS/$(LIB_NAME)/
+	@cp macOS/Types.h macOS/$(LIB_NAME)/
+	@echo "---| COMPILING $(TARGET) LIBRARY |---";
+	$(CC) HS_QueueD3XX.c QueueD3XX.c  $(CFLAGS) $(H_DIRS) $(LIB_DIRS) $(LIB_LINK) -o $(LIB_END_DIR)$(LIB_NAME).dylib
+
 # Our end compile target. Makes end directories as needed.
 compile:
 	@mkdir -p $(LIB_END_DIR)
 	@cp QueueD3XX.h Linux/$(LIB_NAME)/
 	@cp Linux/ftd3xx.h Linux/$(LIB_NAME)/
+	@cp Linux/Types.h Linux/$(LIB_NAME)/
 	@echo "---| COMPILING $(TARGET) LIBRARY |---";
 	$(CC) HS_QueueD3XX.c QueueD3XX.c  $(CFLAGS) $(H_DIRS) $(LIB_DIRS) $(LIB_LINK).so -o $(LIB_END_DIR)$(LIB_NAME).so
 
 clean:
 	rm -rf Linux/$(LIB_NAME)/
+	rm -rf macOS/$(LIB_NAME)/
