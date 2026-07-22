@@ -933,13 +933,6 @@ FTD3XX_API FT_STATUS FT_GetGPIO(
 #endif /*__linux__ __APPLE__*/
 
 #if defined (__linux__) || defined (__APPLE__)
-FTD3XX_API FT_STATUS FT_SetVIDPID(
-	DWORD dwVID,
-	DWORD dwPID
-	);
-#endif /*__linux__ __APPLE__*/
-
-#if defined (__linux__) || defined (__APPLE__)
 /* Set transfer parameters for each FIFO channel
  * Must be called before FT_Create is called. Need to be called again
  * after FT_Close(), otherwise default parameters will be used.
