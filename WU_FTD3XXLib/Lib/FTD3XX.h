@@ -515,9 +515,13 @@ extern "C" {
         );
 
     FTD3XX_API
-        FT_STATUS WINAPI FT_Close(
+        FT_STATUS WINAPI FT3_Close(
         FT_HANDLE ftHandle
         );
+
+#ifndef FTD3XX_NO_FT_ALIASES
+#define FT_Close FT3_Close
+#endif
 
     FTD3XX_API
         FT_STATUS WINAPI FT_GetVIDPID(
@@ -709,18 +713,26 @@ extern "C" {
         );
 
 	FTD3XX_API
-		FT_STATUS WINAPI FT_CreateDeviceInfoList(
+		FT_STATUS WINAPI FT3_CreateDeviceInfoList(
 		LPDWORD lpdwNumDevs
 		);
 
+#ifndef FTD3XX_NO_FT_ALIASES
+#define FT_CreateDeviceInfoList FT3_CreateDeviceInfoList
+#endif
+
 	FTD3XX_API
-		FT_STATUS WINAPI FT_GetDeviceInfoList(
+		FT_STATUS WINAPI FT3_GetDeviceInfoList(
 		FT_DEVICE_LIST_INFO_NODE *ptDest,
 		LPDWORD lpdwNumDevs
 		);
 
+#ifndef FTD3XX_NO_FT_ALIASES
+#define FT_GetDeviceInfoList FT3_GetDeviceInfoList
+#endif
+
 	FTD3XX_API
-		FT_STATUS WINAPI FT_GetDeviceInfoDetail(
+		FT_STATUS WINAPI FT3_GetDeviceInfoDetail(
 		DWORD dwIndex,
 		LPDWORD lpdwFlags,
 		LPDWORD lpdwType,
@@ -731,12 +743,20 @@ extern "C" {
 		FT_HANDLE *pftHandle
 		);
 
+#ifndef FTD3XX_NO_FT_ALIASES
+#define FT_GetDeviceInfoDetail FT3_GetDeviceInfoDetail
+#endif
+
 	FTD3XX_API
-		FT_STATUS WINAPI FT_ListDevices(
+		FT_STATUS WINAPI FT3_ListDevices(
 		PVOID pArg1,
 		PVOID pArg2,
 		DWORD Flags
 		);
+
+#ifndef FTD3XX_NO_FT_ALIASES
+#define FT_ListDevices FT3_ListDevices
+#endif
 
 	FTD3XX_API
 		FT_STATUS WINAPI FT_IsDevicePath(
@@ -750,15 +770,23 @@ extern "C" {
 	//
 
 	FTD3XX_API
-		FT_STATUS WINAPI FT_GetDriverVersion(
+		FT_STATUS WINAPI FT3_GetDriverVersion(
 		FT_HANDLE ftHandle,
 		LPDWORD lpdwVersion
 		);
 
+#ifndef FTD3XX_NO_FT_ALIASES
+#define FT_GetDriverVersion FT3_GetDriverVersion
+#endif
+
 	FTD3XX_API
-		FT_STATUS WINAPI FT_GetLibraryVersion(
+		FT_STATUS WINAPI FT3_GetLibraryVersion(
 		LPDWORD lpdwVersion
 		);
+
+#ifndef FTD3XX_NO_FT_ALIASES
+#define FT_GetLibraryVersion FT3_GetLibraryVersion
+#endif
 
     FTD3XX_API
     FT_STATUS WINAPI FT_SetPipeTimeout(
